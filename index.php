@@ -25,6 +25,7 @@ if (!class_exists('WpCryptoPlugin')) {
       $json_atts = esc_attr(json_encode([
         'fiats' => $atts['fiats'],
         'limit' => $atts['limit'],
+        'interval' => $atts['interval'],
       ]));
 
       return "

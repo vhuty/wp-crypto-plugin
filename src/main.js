@@ -1,5 +1,7 @@
 const LIST_MIN_LIMIT = 10;
 const DEFAULT_FIAT = 'USD';
+const DEFAULT_INTERVAL_MS = 10000;
+const MIN_INTERVAL_MS = 3000;
 
 this.app = new Vue({
   el: '#app',
@@ -9,6 +11,7 @@ this.app = new Vue({
     currentFiat: null,
     limit: LIST_MIN_LIMIT,
     isFetchingCurrencies: false,
+    fetchInterval: DEFAULT_INTERVAL_MS,
   },
   methods: {
     async fetchList() {
@@ -34,6 +37,11 @@ this.app = new Vue({
       this.limit = limitNum;
     }
 
+    const intervalNum = Number(parameters.interval);
+    if(intervalNum >= MIN_INTERVAL_MS) {
+      this.fetchInterval = intervalNum;
+    }
+
     if (parameters.fiats) {
       const filteredFiats = parameters.fiats
         .split(new RegExp('[^A-Za-z]+'))
@@ -46,7 +54,7 @@ this.app = new Vue({
 
     this.currentFiat = this.fiats[0];
 
-    setInterval(this.fetchList, 10000);
+    setInterval(this.fetchList, this.fetchInterval);
     await this.fetchList();
   },
 });
