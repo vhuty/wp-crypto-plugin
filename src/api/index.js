@@ -7,12 +7,16 @@ class Api {
     const { data, error } = await this.makeApiCall(url.href);
 
     if (error) {
-      console.error(error);
+      console.error(error.message);
 
-      return;
+      if (error.parameter === 'tsym') {
+        alert(`WpCryptoPlugin: Invalid fiat specfified "${fiat}"`);
+      }
+
+      return [];
     }
 
-    return data.Data.map(this.fromFullFormat);
+    return data.map(this.fromFullFormat);
   }
 
   async makeApiCall(url) {
@@ -24,13 +28,18 @@ class Api {
       mode: 'cors',
     });
 
-    const data = await response.json();
+    const { Data, Response, Message, ParamWithError } = await response.json();
 
-    if (data.Response === 'Error') {
-      return { error: data.message };
+    if (Response === 'Error') {
+      return { 
+        error: { 
+          message: Message, 
+          parameter: ParamWithError,
+        }, 
+      };
     }
 
-    return { data };
+    return { data: Data };
   }
 
   fromFullFormat(currency) {
