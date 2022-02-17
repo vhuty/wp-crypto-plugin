@@ -1,6 +1,6 @@
 Vue.component('list', {
   template: `
-    <ol class="list-group" style="width: 450px; max-height: 480px; overflow: scroll;">
+    <ol class="list-group" :style="listStyles">
       <li 
         class="list-group-item d-flex justify-content-between align-items-center"
         v-for="(currency, index) in currencies"
@@ -29,9 +29,23 @@ Vue.component('list', {
       type: Array,
       default: () => [],
     },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {};
+  },
+  computed: {
+    listStyles() {
+      return {
+        width: '450px',
+        'max-height': '480px',
+        overflow: 'scroll',
+        filter: this.isLoading ? 'grayscale(75%) blur(2px)' : '',
+      };
+    }
   },
   methods: {
     getCurrencyName(currency) {

@@ -31,7 +31,7 @@ if (!class_exists('WpCryptoPlugin')) {
         <div id='app' data-atts='{$json_atts}'>
           <div>
             <tabber :tabs='fiats' @switch='changeFiat'></tabber>
-            <list :currencies='currencies'></list>
+            <list :currencies='currencies' :is-loading='isFetchingCurrencies'></list>
           </div>
         </div>
       ";

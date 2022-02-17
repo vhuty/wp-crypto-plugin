@@ -8,13 +8,18 @@ this.app = new Vue({
     fiats: [DEFAULT_FIAT],
     currentFiat: null,
     limit: LIST_MIN_LIMIT,
+    isFetchingCurrencies: false,
   },
   methods: {
     async fetchList() {
+      this.isFetchingCurrencies = true;
+
       this.currencies = await this.$api.getDailyTop(
         this.currentFiat,
         this.limit
       );
+
+      this.isFetchingCurrencies = false;
     },
     async changeFiat(index) {
       this.currentFiat = this.fiats[index];
