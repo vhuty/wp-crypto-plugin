@@ -2,7 +2,7 @@ Vue.component('tabber', {
   template: `
     <ul class="nav nav-tabs">
       <li v-for="tab in tabs" class="nav-item" @click="switchTab(tab)">
-        <a class="nav-link" :class="{ active: isActiveTab(tab) }">{{ tab }}</a>
+        <a class="nav-link" :class="{ active: isActiveTab(tab) }" style="cursor: pointer">{{ tab }}</a>
       </li>
     </ul>
   `,
