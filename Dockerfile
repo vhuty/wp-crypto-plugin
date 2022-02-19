@@ -1,4 +1,4 @@
-FROM wordpress:latest
+FROM wordpress:apache
 
 COPY ./ /var/www/html/wp-content/plugins/wp-crypto-plugin
 
