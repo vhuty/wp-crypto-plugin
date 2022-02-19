@@ -8,3 +8,5 @@ ENV WORDPRESS_DB_PASSWORD=wordpress
 ENV WORDPRESS_DB_NAME=wordpress
 
 EXPOSE 80
+
+CMD start-web.sh
